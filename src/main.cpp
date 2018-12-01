@@ -46,6 +46,8 @@ using namespace std;
 #error "AEGEUS cannot be compiled without assertions."
 #endif
 
+#include "keyregistry.h"
+
 /**
  * Global state
  */

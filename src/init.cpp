@@ -59,6 +59,9 @@
 #include "zmq/zmqnotificationinterface.h"
 #endif
 
+#include "leveldb/include/leveldb/db.h"
+#include "keyregistry.h"
+
 using namespace boost;
 using namespace std;
 
@@ -1276,6 +1279,17 @@ bool AppInit2(boost::thread_group& threadGroup)
                     strLoadError = _("Corrupted block database detected");
                     break;
                 }
+
+		// Open the key registry database
+                uiInterface.InitMessage(_("Opening key registry database..."));
+		leveldb::Status open_status = keyregistry->openDB();
+
+		if (false == open_status.ok()) {
+		  LogPrintf("Error opening the key registry database: %s, shutting down...\n", open_status.ToString());
+                  strLoadError = _("Error opening key registry database");
+		  break;
+		}
+
             } catch (std::exception& e) {
                 if (fDebug) LogPrintf("%s\n", e.what());
                 strLoadError = _("Error opening block database");

@@ -161,7 +161,8 @@ BITCOIN_CORE_H = \
   zmq/zmqabstractnotifier.h \
   zmq/zmqconfig.h \
   zmq/zmqnotificationinterface.h \
-  zmq/zmqpublishnotifier.h
+  zmq/zmqpublishnotifier.h \
+  keyregistry.h
 
 JSON_H = \
   json/json_spirit.h \
@@ -211,7 +212,8 @@ libbitcoin_server_a_SOURCES = \
   txmempool.cpp \
   validationinterface.cpp \
   $(JSON_H) \
-  $(BITCOIN_CORE_H)
+  $(BITCOIN_CORE_H) \
+  keyregistry.cpp
 
 if ENABLE_ZMQ
 LIBBITCOIN_ZMQ=libbitcoin_zmq.a
